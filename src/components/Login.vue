@@ -9,18 +9,19 @@
       <el-form
         ref="loginForm"
         :model="loginForm"
+        :rules="loginRules"
         class="login_form"
         label-width="0"
       >
         <!-- 用户名 -->
-        <el-form-item>
+        <el-form-item prop="username">
           <el-input
             v-model="loginForm.username"
             prefix-icon="iconfont icon-denglu"
           ></el-input>
         </el-form-item>
         <!-- 密码 -->
-        <el-form-item>
+        <el-form-item prop="password">
           <el-input
             v-model="loginForm.password"
             prefix-icon="iconfont icon-mima1"
@@ -40,10 +41,25 @@
 export default {
   data() {
     return {
+      // 表单数据
       loginForm: {
         username: "username",
         password: "password",
       },
+      // 验证对象
+      loginRules: {
+        // 校验用户名
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur'},//必填项验证，blur表示触发方式为失去焦点。（trigger，触发）
+          { min: 5, max: 12, message: '长度在 5 到 12 个字符', trigger: 'blur' },//长度验证
+        ],
+        // 校验密码
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur'},//必填项验证，blur表示失去焦点
+          { min: 6, max: 10, message: '长度在 6 到 10 个字符', trigger: 'blur' },//长度验证
+
+        ]
+      }
     };
   },
 };
